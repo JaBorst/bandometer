@@ -1,2 +1,0 @@
-# bandometer
-test
