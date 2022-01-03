@@ -1,4 +1,4 @@
-"""bandometer URL Configuration
+"""backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -14,8 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from bandometer import views
+
+router = routers.DefaultRouter()
+router.register(r'bands', views.BandView, 'bands')
+router.register(r'clubs', views.ClubView, 'clubs')
+router.register(r'events', views.EventView, 'events')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+    path('api/query', views.QueryView.as_view())
 ]
